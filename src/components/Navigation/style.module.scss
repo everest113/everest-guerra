@@ -1,0 +1,29 @@
+.container {
+    padding: 8% 4%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    
+    ul {
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+    }
+}
+
+.active {
+    opacity: .2 !important;
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding: 4%;
+    }
+}

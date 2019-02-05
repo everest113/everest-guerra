@@ -1,0 +1,60 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	height: 100vh;
+
+    ul {
+        list-style: none;
+		padding: 0;
+		
+		li {
+			opacity: 0;
+			margin: 60px;
+			animation-name: fade;
+			animation-duration: 1s;
+			animation-fill-mode: forwards;
+			animation-timing-function: ease-in-out;
+		}
+
+		li:nth-child(1) {
+			animation-delay: 0.2s;
+		}
+
+		li:nth-child(2) {
+			animation-delay: 0.4s;
+		}
+
+		li:nth-child(3) {
+			animation-delay: 0.6s;
+		}
+
+		a {
+			color: white;
+			text-decoration: none;
+			font-size: 5em;
+			display: block;
+			font-weight: bold;
+			text-align: center;
+		}
+		 
+		a:hover {
+			text-shadow: 
+				-1px -1px 0 white,
+				1px -1px 0 white,
+				-1px 1px 0 white,
+				1px 1px 0 white;
+			color: black;
+		}
+    }
+}
+
+@keyframes fade {
+	0% { 
+        transform: translateY(40px);
+        opacity: 0;
+	}
+	100% {
+		opacity: 100;
+	}
+}
