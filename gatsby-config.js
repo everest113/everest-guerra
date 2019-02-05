@@ -6,6 +6,8 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-offline',
     'gatsby-plugin-sass',
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -24,6 +26,13 @@ module.exports = {
         google: {
           families: ['Archivo']
         }
+      }
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "assets",
+        path: `${__dirname}/static/`
       }
     },
   ],

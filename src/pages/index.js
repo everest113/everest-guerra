@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import { graphql } from 'gatsby';
+import Img from 'gatsby-image';
 import Helmet from 'react-helmet';
 
 import Layout from '../components/layout';
 import styles from './index.module.scss';
-
-import profile from '../images/everest-guerra.jpeg';
 import text from '../images/text.svg';
 import resume from '../images/Everest_Guerra_Resume.pdf';
 
@@ -46,6 +46,7 @@ class IndexPage extends Component {
 	}
 
 	render() {
+		console.log(this.props.data)
 		return (
 			<Layout>
 				<Helmet>
@@ -62,13 +63,13 @@ class IndexPage extends Component {
 					<div className={styles.introCopy}>
 						<h1>Full-stack developer and entrepreneur based in Detroit.</h1>
 						<p>
-							I focus on building creative solutions to complex problems. I work with start-ups, brands, and organizations. If you need a website, I'd love to build it for you. Want to talk about something else? Let's grab a 🍺
+							I focus on building creative solutions to complex problems. I work with start-ups, brands, and organizations. If you need a website, I'd love to build it for you. Want to talk about something else? Let's grab a <span role="img" aria-label="beer">🍺</span>
 						</p>
 					</div>
 				</div>
 				<div className={styles.profile}>
 					<div className={styles.profile_raf}>
-						<img src={profile} alt="Everest Guerra"/>
+						<Img fluid={this.props.data.headshot.childImageSharp.fluid} alt="Everest Guerra"/>
 					</div>	
 				</div>
 				<ul className={styles.footer}>
@@ -111,4 +112,16 @@ class IndexPage extends Component {
 	}
 }
 
-export default IndexPage
+export default IndexPage;
+
+export const query = graphql`
+	query {
+		headshot: file(relativePath: { eq: "everest-guerra.jpeg" }) {
+			childImageSharp {
+				fluid(maxWidth: 1000) {
+					...GatsbyImageSharpFluid_withWebp
+				}
+			}
+		}
+	}
+`;
