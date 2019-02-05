@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from '../components/layout';
+import Helmet from 'react-helmet';
 import styles from './projects.module.scss';
 
 export default class Projects extends React.Component {
@@ -8,11 +9,14 @@ export default class Projects extends React.Component {
 
 		return (
 			<Layout>
+				<Helmet>
+					<title>Everest Guerra | Projects</title>
+				</Helmet>
 				<div className={styles.container}>
 					<ul>
 						<li>
 							<a 
-								href="https://maglawpllc.com" 
+								href="https://www.maglawpllc.com" 
 								target="_blank"
 								rel="noopener noreferrer">
 								MAGLaw PLLC

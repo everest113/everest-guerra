@@ -1,10 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import Helmet from 'react-helmet';
 
-import Layout from '../components/layout'
-import styles from './index.module.scss'
+import Layout from '../components/layout';
+import styles from './index.module.scss';
 
-import profile from '../images/everest-guerra.jpeg'
-import text from '../images/text.svg'
+import profile from '../images/everest-guerra.jpeg';
+import text from '../images/text.svg';
 import resume from '../images/Everest_Guerra_Resume.pdf';
 
 class IndexPage extends Component {
@@ -47,6 +48,9 @@ class IndexPage extends Component {
 	render() {
 		return (
 			<Layout>
+				<Helmet>
+					<title>Everest Guerra | About</title>
+				</Helmet>
 				<div className={styles.circle}>
 					<div className={styles.image}>
 						<img 
@@ -59,9 +63,6 @@ class IndexPage extends Component {
 						<h1>Full-stack developer and entrepreneur based in Detroit.</h1>
 						<p>
 							I focus on building creative solutions to complex problems. I work with start-ups, brands, and organizations. If you need a website, I'd love to build it for you. Want to talk about something else? Let's grab a 🍺
-						</p>
-						<p>
-							Over the past few years I've teamed up with Fnatic, Urban Fruit, Cohn & Wolfe, Bulb and more.
 						</p>
 					</div>
 				</div>

@@ -20,7 +20,6 @@ h1 {
 	margin-bottom: 100px;
 
 	h1 {
-		line-height: 1.5em;
 		opacity: 0;
 		animation-delay: 0.7s;
 		animation-duration: 0.5s;
@@ -30,7 +29,7 @@ h1 {
 	}
 
 	p {
-		line-height: 2em;
+		line-height: 1.8em;
 		font-size: 1.2em;
 		font-weight: 500;
 		opacity: 0;
@@ -97,10 +96,6 @@ h1 {
 }
 
 @keyframes spin {
-	// 0% {
-	// 	transform: rotate(0deg)
-	// }
-
 	100% {
 		transform: rotate(-360deg)
 	}
@@ -145,6 +140,10 @@ h1 {
 
 	.introCopy {
 		padding-top: 40vh;
+
+		h1 {
+			line-height: 1.3em;
+		}
 	}
 
 	.footer {
@@ -204,6 +203,14 @@ h1 {
 
 	.introCopy {
 		padding-top: 50vh;
+
+		p {
+			font-size: 1.4em;
+		}
+
+		h1 {
+			line-height: 1.5em;
+		}
 	}
 
 	.profile {
