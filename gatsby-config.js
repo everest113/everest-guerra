@@ -1,3 +1,5 @@
+const path = require(`path`)
+
 module.exports = {
   siteMetadata: {
     title: 'Everest Guerra',
@@ -32,7 +34,7 @@ module.exports = {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "assets",
-        path: `${__dirname}/static/`
+        path: path.join(__dirname, `src`, `images`),
       }
     },
   ],
