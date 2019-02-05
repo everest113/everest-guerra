@@ -5,7 +5,7 @@ import styles from './index.module.scss'
 
 import profile from '../images/everest-guerra.jpeg'
 import text from '../images/text.svg'
-import resume from '../images/everest_guerra_resume.pdf';
+import resume from '../images/Everest_Guerra_Resume.pdf';
 
 class IndexPage extends Component {
 	state = {
