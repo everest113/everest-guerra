@@ -56,9 +56,9 @@ class IndexPage extends Component {
 				</div>
 				<div className={styles.intro}>
 					<div className={styles.introCopy}>
-						<h1>Freelance frontend developer based in Belgium.</h1>
+						<h1>Full-stack developer and entrepreneur based in Detroit.</h1>
 						<p>
-							I focus on creative interactions & slick animations. I work with start-ups, agencies and brands. If you need a website, I'd love to build it for you.
+							I focus on building creative solutions to complex problems. I work with start-ups, brands, and organizations. If you need a website, I'd love to build it for you. Want to talk about something else? Let's grab a 🍺
 						</p>
 						<p>
 							Over the past few years I've teamed up with Fnatic, Urban Fruit, Cohn & Wolfe, Bulb and more.
