@@ -13,13 +13,13 @@ export default class Navigation extends React.Component {
 						<Link 
 							to="/"
 							activeClassName={styles.active} 
-							ref="About">About</Link>
+							ref="Projects">Projects</Link>
 					</li>
 					<li>
 						<Link 
-							to="/projects" 
+							to="/about" 
 							activeClassName={styles.active}
-							ref="Projects">Projects</Link>
+							ref="About">About</Link>
 					</li>
 				</ul>
 			</div>

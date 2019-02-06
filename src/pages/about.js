@@ -4,11 +4,11 @@ import Img from 'gatsby-image';
 import Helmet from 'react-helmet';
 
 import Layout from '../components/layout';
-import styles from './index.module.scss';
+import styles from './about.module.scss';
 import text from '../images/text.svg';
 import resume from '../images/Everest_Guerra_Resume.pdf';
 
-class IndexPage extends Component {
+class AboutPage extends Component {
 	state = {
 		circleRotation: 0
 	}
@@ -46,7 +46,6 @@ class IndexPage extends Component {
 	}
 
 	render() {
-		console.log(this.props.data)
 		return (
 			<Layout>
 				<Helmet>
@@ -55,6 +54,7 @@ class IndexPage extends Component {
 				<div className={styles.circle}>
 					<div className={styles.image}>
 						<img 
+							alt="circle"
 							src={text} 
 							style={{ transform: `rotate(${this.state.circleRotation}deg` }}/>
 					</div>
@@ -112,7 +112,7 @@ class IndexPage extends Component {
 	}
 }
 
-export default IndexPage;
+export default AboutPage;
 
 export const query = graphql`
 	query {
