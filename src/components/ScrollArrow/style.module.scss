@@ -1,0 +1,21 @@
+.icon {
+    border: solid white;
+    border-width: 0 5px 5px 0;
+    display: inline-block;
+    padding: 8px;
+    transform: rotate(45deg);
+    animation: bounce 1s infinite ease;
+    transition: opacity 0.5s ease-in-out;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.display {
+    opacity: 1;
+}
+
+@keyframes bounce {
+	0% { transform: translateY(0) rotate(45deg) }
+	50% { transform: translateY(10px) rotate(45deg) }
+	100% { transform: translateY(0) rotate(45deg) }
+}

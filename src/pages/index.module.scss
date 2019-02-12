@@ -110,6 +110,26 @@ body {
 	}
 }
 
+.scrollArrow {
+	position: fixed;
+    bottom: 4%;
+    display: flex;
+    width: 100%;
+	justify-content: center;
+	animation: arrow;
+	animation-duration: 300ms;
+	animation-timing-function: linear;
+	animation-fill-mode: forwards;
+	animation-delay: 1.2s;
+	opacity: 0;
+}
+
+@keyframes arrow {
+	100% {
+		opacity: 1;
+	}
+}
+
 .projects {
 	border-top: 1px solid white;
     display: flex;

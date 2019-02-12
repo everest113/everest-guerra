@@ -1,10 +1,17 @@
 import React from 'react';
 import Helmet from 'react-helmet';
+import Link from 'gatsby-link';
 import Layout from '../components/layout';
+import ScrollArrow from '../components/ScrollArrow/index';
 import styles from './index.module.scss';
 
 export default class IndexPage extends React.Component {
 
+	handleClick = () => {
+    const offsetTop = this.refs.projects.offsetTop
+    window.scrollTo({left: 0, top: offsetTop, behavior: 'smooth'} )
+	}
+	
 	render() {
 
 		return (
@@ -34,8 +41,11 @@ export default class IndexPage extends React.Component {
 							<span>problems.</span>
 						</div>
 					</div>
+					<div className={styles.scrollArrow}>
+						<ScrollArrow handleClick={this.handleClick} />
+					</div>
 				</div>
-				<div className={styles.projects}>
+				<div className={styles.projects} ref="projects">
 					<ul>
 						<li>
 							<a 
@@ -60,6 +70,9 @@ export default class IndexPage extends React.Component {
 								rel="noopener noreferrer">
 								Active & Domeless
 							</a>
+						</li>
+						<li>
+							<Link to="/snake" ref="Snake">Snake (Game)</Link>
 						</li>
 					</ul>
 				</div>
