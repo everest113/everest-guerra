@@ -102,6 +102,8 @@ export default class Snake extends React.Component {
 				return [x, y - 1]
 			case "down":
 				return [x, y + 1]
+			default:
+				return null
 		}
 	}
 
@@ -176,7 +178,9 @@ export default class Snake extends React.Component {
 				break;
 			case "right":
 				snake.push([x + 1, y])
-				break
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -200,6 +204,8 @@ export default class Snake extends React.Component {
 			case 39:
 			key = direction === "left" ? null:"right"
 				break;
+			default:
+				key = null
 		}
 
 		if(key) {
