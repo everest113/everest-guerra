@@ -15,6 +15,14 @@ export default class Grid extends React.Component {
 		return rowHeight - this.props.borderWidth * 2
 	}
 
+	getBlockSideLength = () => { 
+		return Math.min(this.getGridHeight(), this.getGridWidth()) 
+	}
+
+	getGridSideLength = () => {
+		return Math.min(this.props.height, this.props.width)
+	}
+
 	shouldDisplaySnake = (coordinate) => {
 		const { snake } = this.props;
 		for(var i = 0; i < snake.length; i++) {
@@ -46,8 +54,8 @@ export default class Grid extends React.Component {
 							[styles.food]: this.shouldDisplayFood([x, y])
 						})} 
 						style={{ 
-							width: `${this.getGridWidth()}px`, 
-							height: `${this.getGridHeight()}px`,
+							width: `${this.getBlockSideLength()}px`, 
+							height: `${this.getBlockSideLength()}px`,
 							borderWidth: `${this.props.borderWidth}px` 
 						}} 
 					/>
@@ -56,7 +64,14 @@ export default class Grid extends React.Component {
 		}
 
 		return (
-			grid
+			<div 
+				className={styles.container}
+				style={{
+					height: `${this.getGridSideLength()}px`, 
+					width: `${this.getGridSideLength()}px`}}
+			>
+				{grid}
+			</div>
 		)
 	}
 }

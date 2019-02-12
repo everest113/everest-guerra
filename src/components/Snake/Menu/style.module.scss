@@ -1,0 +1,27 @@
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+        border: none;
+        background: transparent;
+        color: white;
+        cursor: pointer;
+
+        font-size: 1.9em;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    button:hover {
+        text-shadow: 
+            -1px -1px 0 white,
+            1px -1px 0 white,
+            -1px 1px 0 white,
+            1px 1px 0 white;
+        color: black;
+    }
+}

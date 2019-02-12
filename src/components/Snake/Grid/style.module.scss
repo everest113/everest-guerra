@@ -1,13 +1,19 @@
+.container {
+    margin: auto;
+    border: 1px solid white;
+}
+
 .grid {
     border-style: solid;
-    border-color: rgb(44, 44, 44);
+    border-color: #191919;
     display: inline-block;
+    font-size: 5px;
 }
 
 .snake {
-    background: blue;
+    background: #00FF48;
 }
 
 .food {
-    background: red;
+    background: #FF0000;
 }

@@ -1,0 +1,15 @@
+.container {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    right: 50%;
+    padding-top: 4%;
+    margin: 0 -200px;
+    width: 400px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.content {
+    text-align: center;
+}

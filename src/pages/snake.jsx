@@ -1,8 +1,9 @@
 import React from 'react';
 import Layout from '../components/layout';
 import Grid from '../components/Snake/Grid/index';
+import ScoreBoard from '../components/Snake/ScoreBoard/index';
+import Menu from '../components/Snake/Menu/index';
 import styles from './snake.module.scss';
-import { clear } from 'idb-keyval';
 
 export default class Snake extends React.Component {
 	state = {
@@ -17,9 +18,10 @@ export default class Snake extends React.Component {
 		],
 		food: [28, 25],
 		score: 0,
-		playGame: true,
+		highScore: 0,
+		playGame: false,
 		direction: "right",
-		speed: 150
+		speed: 100
 	}
 	
 	componentDidMount() {
@@ -27,8 +29,6 @@ export default class Snake extends React.Component {
 		this.timerID = setInterval(() => {
 			if(this.state.playGame) {
 				this.playGame()
-			} else {
-				clearInterval(this.timerID)
 			}
 		}, this.state.speed)
 
@@ -48,6 +48,16 @@ export default class Snake extends React.Component {
 		this.setState({	canvasWidth, canvasHeight	})
 	}
 
+	resetGame = () => {
+		this.setState({
+			snake: [[25, 25]],
+			food: [28, 25],
+			score: 0, 
+			playGame: true,
+			direction: "right"
+		})
+	}
+
 	playGame() {
 		this.moveSnake()
 		this.checkIfSnakeAte()
@@ -60,14 +70,18 @@ export default class Snake extends React.Component {
 			const direction = this.getPointDirection(point, prevPoint)	
 			prevPoint = point.slice()
 			const newPoint = this.movePoint(point, direction)
-			if(this.isOutOfBounds(newPoint) || this.ranIntoSelf()) {
+			if(this.isOutOfBounds(newPoint)) {
 				gameOver = true
 			}
 			return newPoint
 		})
 
+		if(this.ranIntoSelf(newSnake)) {
+			gameOver = true
+		}
+
 		if(gameOver) {
-			return this.setState({ gameOver: true })
+			return this.setState({ playGame: false })
 		} else {
 			return this.setState({	
 				snake: newSnake
@@ -113,15 +127,23 @@ export default class Snake extends React.Component {
 		const snakeHead = this.state.snake[0];
 		const food = this.state.food
 		if(this.pointsMatch(snakeHead, food)) {
-			let	newSnake = this.addSnakeLength()
-			console.log("new snake")
-			console.log(newSnake)
-			this.setState(prevState => ({
-				food: this.randomePoint(),
-				score: prevState.score + 1,
-				snake: newSnake
+			const	newSnake = this.addSnakeLength()
+			const newFood = this.randomePoint()
+			const newScore = this.state.score + 1
+			const newHighScore = this.getHighScore(newScore)
+
+			this.setState(({
+				snake: newSnake,
+				food: newFood,
+				score: newScore,
+				highScore: newHighScore
 			}))
 		}
+	}
+
+	getHighScore = (newScore) => {
+		const { highScore } = this.state
+		return newScore > highScore ? newScore:highScore
 	}
 
 	addSnakeLength = () => {
@@ -159,19 +181,24 @@ export default class Snake extends React.Component {
 	}
 
 	onKeyPress = (e) => {
+		const { direction } = this.state
 		let key = null;
+		if([37, 38, 39, 40].includes(e.keyCode)) {
+			e.preventDefault()
+		}
+		
 		switch(e.keyCode) {
 			case 38:
-				key = "up"
+				key = direction === "down" ? null:"up"
 				break;
 			case 40:
-				key = "down"
+			key = direction === "up" ? null:"down"
 				break;
 			case 37:
-				key = "left"
+			key = direction === "right" ? null:"left"
 				break;
 			case 39:
-				key = "right"
+			key = direction === "left" ? null:"right"
 				break;
 		}
 
@@ -191,13 +218,18 @@ export default class Snake extends React.Component {
 		)
 	}
 
-	// NEED TO FIGURE OUT HOW TO CHECK IF DUPLICATE COORDINATE EXISTS... IF SO, GAME OVAAA!
-	
-	ranIntoSelf = () => {
-
+	ranIntoSelf(coordinates) {
+		for(var i = 0; i < coordinates.length; i++) {
+			for(var j = 0; j < coordinates.length; j++) {
+				if(i !== j && this.pointsMatch(coordinates[i], coordinates[j])) {
+					return true
+				}
+			}
+		}
+		return false
 	}
 
-	randomePoint() {
+	randomePoint = () => {
 		return [
 			Math.floor(Math.random() * this.state.columns), 
 			Math.floor(Math.random() * this.state.rows)
@@ -209,21 +241,26 @@ export default class Snake extends React.Component {
 	}
 
 	render() {
-		console.log(this.state)
 
 		return (
 			<Layout>
 				<div 
 					className={styles.snakeGame} 
 					style={{ paddingTop: `${this.state.paddingTop}px` }}>
-					<Grid 
-						width={this.state.canvasWidth} 
-						height={this.state.canvasHeight}
-						borderWidth={0.25}
-						columns={this.state.columns}
-						rows={this.state.rows}
-						snake={this.state.snake}
-						food={this.state.food} />
+					<ScoreBoard 
+						score={this.state.score} 
+						highScore={this.state.highScore}/>
+					{this.state.playGame ? 
+						<Grid 
+							width={this.state.canvasWidth} 
+							height={this.state.canvasHeight}
+							borderWidth={0.25}
+							columns={this.state.columns}
+							rows={this.state.rows}
+							snake={this.state.snake}
+							food={this.state.food} />:
+						<Menu onPlay={this.resetGame} />
+					}
 				</div>
 			</Layout>
 		);
