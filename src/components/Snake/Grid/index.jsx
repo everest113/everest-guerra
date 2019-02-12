@@ -25,6 +25,14 @@ export default class Grid extends React.Component {
 		return false
 	}
 
+	shouldDisplayFood = (coordinate) => {
+		const { food } = this.props;
+		if(food[0] === coordinate[1] && food[1] === coordinate[0]) {
+			return true
+		}
+		return false
+	}
+
 	render() {
 		let grid = []
 
@@ -35,6 +43,7 @@ export default class Grid extends React.Component {
 						className={cx({
 							[styles.grid]: true,
 							[styles.snake]: this.shouldDisplaySnake([x, y]),
+							[styles.food]: this.shouldDisplayFood([x, y])
 						})} 
 						style={{ 
 							width: `${this.getGridWidth()}px`, 
@@ -58,5 +67,6 @@ Grid.propTypes = {
 	borderWidth: PropTypes.number.isRequired,
 	columns: PropTypes.number.isRequired,
 	rows: PropTypes.number.isRequired,
-	snake: PropTypes.array.isRequired
+	snake: PropTypes.array.isRequired,
+	food: PropTypes.array.isRequired
 }

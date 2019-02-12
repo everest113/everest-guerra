@@ -2,6 +2,7 @@ import React from 'react';
 import Layout from '../components/layout';
 import Grid from '../components/Snake/Grid/index';
 import styles from './snake.module.scss';
+import { clear } from 'idb-keyval';
 
 export default class Snake extends React.Component {
 	state = {
@@ -13,27 +14,23 @@ export default class Snake extends React.Component {
 		paddingTop: 180,
 		snake: [
 			[25, 25],
-			[24, 25],
-			[23, 25]
 		],
-		food: [0, 0],
+		food: [28, 25],
 		score: 0,
 		playGame: true,
 		direction: "right",
+		speed: 150
 	}
 	
 	componentDidMount() {
 		this.updateCanvasDimensions()
-	
-		if(this.state.playGame) {
-			this.timerID = setInterval(() => {
-				if(this.state.playGame) {
-					this.updateSnakeDimensions()
-				} else {
-					clearInterval(this.timerID)
-				}
-			}, 1000)
-		}
+		this.timerID = setInterval(() => {
+			if(this.state.playGame) {
+				this.playGame()
+			} else {
+				clearInterval(this.timerID)
+			}
+		}, this.state.speed)
 
 		window.addEventListener("resize", this.updateCanvasDimensions)
 		window.addEventListener("keydown", this.onKeyPress)
@@ -51,19 +48,31 @@ export default class Snake extends React.Component {
 		this.setState({	canvasWidth, canvasHeight	})
 	}
 
-	updateSnakeDimensions() {
-		let newSnake = []
+	playGame() {
+		this.moveSnake()
+		this.checkIfSnakeAte()
+	}
+
+	moveSnake() {
 		let prevPoint = null
-		newSnake = this.state.snake.map(point => {
+		let gameOver = false
+		let newSnake = this.state.snake.map(point => {
 			const direction = this.getPointDirection(point, prevPoint)	
-			const newPoint = this.movePoint(point, direction)
 			prevPoint = point.slice()
+			const newPoint = this.movePoint(point, direction)
+			if(this.isOutOfBounds(newPoint) || this.ranIntoSelf()) {
+				gameOver = true
+			}
 			return newPoint
 		})
 
-		return this.setState({
-			snake: newSnake
-		})
+		if(gameOver) {
+			return this.setState({ gameOver: true })
+		} else {
+			return this.setState({	
+				snake: newSnake
+			})
+		}
 	}
 
 	movePoint(point, direction) {
@@ -83,10 +92,9 @@ export default class Snake extends React.Component {
 	}
 
 	getPointDirection = (current, previous) => {
-		if(!previous) {
+		if(!previous || !current) {
 			return this.state.direction
 		}
-
 		if(current[0] === previous[0] && current[1] > previous[1]) {
 			return "up"
 		}
@@ -101,9 +109,56 @@ export default class Snake extends React.Component {
 		}
 	}
 
+	checkIfSnakeAte = () => {
+		const snakeHead = this.state.snake[0];
+		const food = this.state.food
+		if(this.pointsMatch(snakeHead, food)) {
+			let	newSnake = this.addSnakeLength()
+			console.log("new snake")
+			console.log(newSnake)
+			this.setState(prevState => ({
+				food: this.randomePoint(),
+				score: prevState.score + 1,
+				snake: newSnake
+			}))
+		}
+	}
+
+	addSnakeLength = () => {
+		const { snake } = this.state
+		let newSnake = snake.slice()
+		const length = newSnake.length
+		let direction = this.getPointDirection(
+			newSnake[length - 2], newSnake[length - 1]
+		)
+
+		this.addPoint(newSnake, direction)
+	
+		return newSnake
+	}
+
+	addPoint(snake, direction) {
+		const prevPoint = snake[snake.length - 1]
+		const x = prevPoint[0]
+		const y = prevPoint[1]
+
+		switch(direction) {
+			case "up":
+				snake.push([x, y - 1])
+				break;
+			case "down":
+				snake.push([x, y + 1])
+				break;
+			case "left":
+				snake.push([x - 1, y])
+				break;
+			case "right":
+				snake.push([x + 1, y])
+				break
+		}
+	}
+
 	onKeyPress = (e) => {
-		console.log("key pressed")
-		console.log(e.keyCode)
 		let key = null;
 		switch(e.keyCode) {
 			case 38:
@@ -120,17 +175,41 @@ export default class Snake extends React.Component {
 				break;
 		}
 
-		console.log("key: " + key)
 		if(key) {
 			this.setState({
 				direction: key
-			})
+			});
 		}
 	}
 
-	render() {
+	isOutOfBounds(point) {
+		return (
+			point[0] > this.state.columns - 1 || 
+			point[1] > this.state.rows - 1 ||
+			point[0] < 0 ||
+			point[1] < 0
+		)
+	}
 
-		console.log(this.state.direction)
+	// NEED TO FIGURE OUT HOW TO CHECK IF DUPLICATE COORDINATE EXISTS... IF SO, GAME OVAAA!
+	
+	ranIntoSelf = () => {
+
+	}
+
+	randomePoint() {
+		return [
+			Math.floor(Math.random() * this.state.columns), 
+			Math.floor(Math.random() * this.state.rows)
+		]
+	}
+
+	pointsMatch(a, b) {
+		return a[0] === b[0] && a[1] === b[1]
+	}
+
+	render() {
+		console.log(this.state)
 
 		return (
 			<Layout>
@@ -143,7 +222,8 @@ export default class Snake extends React.Component {
 						borderWidth={0.25}
 						columns={this.state.columns}
 						rows={this.state.rows}
-						snake={this.state.snake} />
+						snake={this.state.snake}
+						food={this.state.food} />
 				</div>
 			</Layout>
 		);
