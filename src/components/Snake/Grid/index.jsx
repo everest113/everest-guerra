@@ -6,21 +6,21 @@ import styles from './style.module.scss';
 export default class Grid extends React.Component {
 
 	getGridWidth = () => {
-		let rowWidth = this.props.width / this.props.columns
+		let rowWidth = (this.props.width - 20) / this.props.columns
 		return rowWidth - this.props.borderWidth * 2
 	}
 
 	getGridHeight = () => {
-		let rowHeight = this.props.height / this.props.rows 
+		let rowHeight = (this.props.height - 20) / this.props.rows 
 		return rowHeight - this.props.borderWidth * 2
 	}
 
 	getBlockSideLength = () => { 
-		return Math.min(this.getGridHeight(), this.getGridWidth()) 
+		return Math.min(this.getGridHeight(), this.getGridWidth())
 	}
 
 	getGridSideLength = () => {
-		return Math.min(this.props.height, this.props.width)
+		return Math.min(this.props.height, this.props.width) - 20
 	}
 
 	shouldDisplaySnake = (coordinate) => {

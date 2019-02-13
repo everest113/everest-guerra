@@ -12,7 +12,7 @@ export default class Snake extends React.Component {
 		borderWidth: 0.25,
 		rows: 30,
 		columns: 30,
-		paddingTop: 180,
+		paddingTop: 120,
 		snake: [
 			[15, 15],
 		],
@@ -258,8 +258,7 @@ export default class Snake extends React.Component {
 		return (
 			<Layout>
 				<div 
-					className={styles.snakeGame} 
-					style={{ paddingTop: `${this.state.paddingTop}px` }}>
+					className={styles.snakeGame}>
 					<ScoreBoard 
 						score={this.state.score} 
 						highScore={this.state.highScore}/>
@@ -272,7 +271,9 @@ export default class Snake extends React.Component {
 							rows={this.state.rows}
 							snake={this.state.snake}
 							food={this.state.food} />:
-						<Menu onPlay={this.resetGame} />
+						<Menu 
+							onPlay={this.resetGame} 
+							title={this.state.highScore === 0 ? 'Play Game':'Play Again'}/>
 					}
 				</div>
 			</Layout>
