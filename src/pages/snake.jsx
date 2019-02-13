@@ -10,17 +10,17 @@ export default class Snake extends React.Component {
 		canvasWidth: 0,
 		canvasHeight: 0,
 		borderWidth: 0.25,
-		rows: 50,
-		columns: 50,
+		rows: 30,
+		columns: 30,
 		paddingTop: 180,
 		snake: [
-			[25, 25],
+			[15, 15],
 		],
-		food: [28, 25],
+		food: [18, 15],
 		score: 0,
 		highScore: 0,
 		playGame: false,
-		direction: "right",
+		direction: ["right"],
 		speed: 100
 	}
 	
@@ -50,11 +50,11 @@ export default class Snake extends React.Component {
 
 	resetGame = () => {
 		this.setState({
-			snake: [[25, 25]],
-			food: [28, 25],
+			snake: [[15, 15]],
+			food: [18, 15],
 			score: 0, 
 			playGame: true,
-			direction: "right"
+			direction: ["right"]
 		})
 	}
 
@@ -83,9 +83,16 @@ export default class Snake extends React.Component {
 		if(gameOver) {
 			return this.setState({ playGame: false })
 		} else {
-			return this.setState({	
-				snake: newSnake
-			})
+			let newDirection = this.state.direction.slice()
+			if(newDirection.length > 1) {
+				newDirection.shift()
+			}
+			return (
+				this.setState({	
+					snake: newSnake,
+					direction: newDirection
+				})
+			)
 		}
 	}
 
@@ -109,7 +116,7 @@ export default class Snake extends React.Component {
 
 	getPointDirection = (current, previous) => {
 		if(!previous || !current) {
-			return this.state.direction
+			return this.state.direction[0]
 		}
 		if(current[0] === previous[0] && current[1] > previous[1]) {
 			return "up"
@@ -193,25 +200,25 @@ export default class Snake extends React.Component {
 		
 		switch(e.keyCode) {
 			case 38:
-				key = direction === "down" ? null:"up"
+				key = direction[0] === "down" ? null:"up"
 				break;
 			case 40:
-			key = direction === "up" ? null:"down"
+				key = direction[0] === "up" ? null:"down"
 				break;
 			case 37:
-			key = direction === "right" ? null:"left"
+				key = direction[0] === "right" ? null:"left"
 				break;
 			case 39:
-			key = direction === "left" ? null:"right"
+				key = direction[0] === "left" ? null:"right"
 				break;
 			default:
 				key = null
 		}
 
 		if(key) {
-			this.setState({
-				direction: key
-			});
+			this.setState(prevState => ({
+				direction: prevState.direction.concat(key)
+			}));
 		}
 	}
 
