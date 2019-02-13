@@ -52,7 +52,7 @@ export default class IndexPage extends React.Component {
 								href="https://www.maglawpllc.com" 
 								target="_blank"
 								rel="noopener noreferrer">
-								MAGLaw PLLC
+								MAG Law
 							</a>
 						</li>
 						<li>
