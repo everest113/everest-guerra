@@ -6,7 +6,7 @@ import styles from './style.module.scss';
 export default class Grid extends React.Component {
 
 	getGridWidth = () => {
-		let rowWidth = (this.props.width - 20) / this.props.columns
+		let rowWidth = (this.props.width - 20) / this.props.rows
 		return rowWidth - this.props.borderWidth * 2
 	}
 
@@ -42,10 +42,11 @@ export default class Grid extends React.Component {
 	}
 
 	render() {
+		const { rows } = this.props
 		let grid = []
 
-		for(var x = 0; x < this.props.columns; x++) {
-			for(var y = 0; y < this.props.rows; y++) {
+		for(var x = 0; x < rows; x++) {
+			for(var y = 0; y < rows; y++) {
 				grid.push(
 					<div 
 						className={cx({
@@ -80,7 +81,6 @@ Grid.propTypes = {
 	width: PropTypes.number.isRequired,
 	height: PropTypes.number.isRequired,
 	borderWidth: PropTypes.number.isRequired,
-	columns: PropTypes.number.isRequired,
 	rows: PropTypes.number.isRequired,
 	snake: PropTypes.array.isRequired,
 	food: PropTypes.array.isRequired

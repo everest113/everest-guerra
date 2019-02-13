@@ -1,4 +1,5 @@
 import React from 'react';
+import cx from 'classnames';
 import Layout from '../components/layout';
 import Grid from '../components/Snake/Grid/index';
 import ScoreBoard from '../components/Snake/ScoreBoard/index';
@@ -11,7 +12,6 @@ export default class Snake extends React.Component {
 		canvasHeight: 0,
 		borderWidth: 0.25,
 		rows: 30,
-		columns: 30,
 		paddingTop: 120,
 		snake: [
 			[15, 15],
@@ -224,7 +224,7 @@ export default class Snake extends React.Component {
 
 	isOutOfBounds(point) {
 		return (
-			point[0] > this.state.columns - 1 || 
+			point[0] > this.state.rows - 1 || 
 			point[1] > this.state.rows - 1 ||
 			point[0] < 0 ||
 			point[1] < 0
@@ -244,7 +244,7 @@ export default class Snake extends React.Component {
 
 	randomePoint = () => {
 		return [
-			Math.floor(Math.random() * this.state.columns), 
+			Math.floor(Math.random() * this.state.rows), 
 			Math.floor(Math.random() * this.state.rows)
 		]
 	}
@@ -254,29 +254,40 @@ export default class Snake extends React.Component {
 	}
 
 	render() {
+		const { highScore, playGame } = this.state
 
 		return (
 			<Layout>
 				<div 
 					className={styles.snakeGame}>
-					<ScoreBoard 
-						score={this.state.score} 
-						highScore={this.state.highScore}/>
-					{this.state.playGame ? 
+					<Transition display={highScore !== 0}>
+						<ScoreBoard 
+							score={this.state.score} 
+							highScore={highScore}/>
+					</Transition>
+					<Transition display={playGame}>
 						<Grid 
 							width={this.state.canvasWidth} 
 							height={this.state.canvasHeight}
 							borderWidth={0.25}
-							columns={this.state.columns}
 							rows={this.state.rows}
 							snake={this.state.snake}
-							food={this.state.food} />:
+							food={this.state.food} />
+					</Transition>
+					<Transition display={!playGame}>
 						<Menu 
 							onPlay={this.resetGame} 
-							title={this.state.highScore === 0 ? 'Play Game':'Play Again'}/>
-					}
+							title={highScore === 0 ? 'Play Game':'Play Again?'}/>
+					</Transition>
 				</div>
 			</Layout>
 		);
 	}
 }
+
+const Transition = ({display, children}) =>
+	<div className={cx({
+				[styles.transition]: true,
+				[styles.display]: display	})}>
+		{children}
+	</div>

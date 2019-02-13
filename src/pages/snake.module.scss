@@ -1,11 +1,18 @@
 .snakeGame {
     border-top: 1px solid white;
     width: 100%;
-    z-index: 20;
-    position: relative;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.transition {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.display {
+  opacity: 1;
 }
 

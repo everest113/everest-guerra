@@ -4,6 +4,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
 
     button {
         border: none;
@@ -11,7 +15,7 @@
         color: white;
         cursor: pointer;
 
-        font-size: 1.9em;
+        font-size: 4.5em;
         font-weight: bold;
         text-align: center;
     }

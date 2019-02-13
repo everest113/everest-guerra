@@ -119,6 +119,8 @@ h1 {
 		font-size: 2em;
 		text-decoration: none;
 		font-weight: bold;
+		z-index: 20;
+		position: relative;
 	}
 
 	a:hover {
