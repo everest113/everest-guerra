@@ -9,10 +9,12 @@
 
 .transition {
     opacity: 0;
+    visibility: hidden;
     transition: opacity 0.5s ease-in-out;
 }
 
 .display {
-  opacity: 1;
+    opacity: 1;
+    visibility: visible;
 }
 
