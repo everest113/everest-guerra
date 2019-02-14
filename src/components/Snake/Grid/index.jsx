@@ -6,21 +6,21 @@ import styles from './style.module.scss';
 export default class Grid extends React.Component {
 
 	getGridWidth = () => {
-		let rowWidth = this.props.width / this.props.columns
+		let rowWidth = (this.props.width - 20) / this.props.rows
 		return rowWidth - this.props.borderWidth * 2
 	}
 
 	getGridHeight = () => {
-		let rowHeight = this.props.height / this.props.rows 
+		let rowHeight = (this.props.height - 20) / this.props.rows 
 		return rowHeight - this.props.borderWidth * 2
 	}
 
 	getBlockSideLength = () => { 
-		return Math.min(this.getGridHeight(), this.getGridWidth()) 
+		return Math.min(this.getGridHeight(), this.getGridWidth())
 	}
 
 	getGridSideLength = () => {
-		return Math.min(this.props.height, this.props.width)
+		return Math.min(this.props.height, this.props.width) - 20
 	}
 
 	shouldDisplaySnake = (coordinate) => {
@@ -42,10 +42,11 @@ export default class Grid extends React.Component {
 	}
 
 	render() {
+		const { rows } = this.props
 		let grid = []
 
-		for(var x = 0; x < this.props.columns; x++) {
-			for(var y = 0; y < this.props.rows; y++) {
+		for(var x = 0; x < rows; x++) {
+			for(var y = 0; y < rows; y++) {
 				grid.push(
 					<div 
 						className={cx({
@@ -80,7 +81,6 @@ Grid.propTypes = {
 	width: PropTypes.number.isRequired,
 	height: PropTypes.number.isRequired,
 	borderWidth: PropTypes.number.isRequired,
-	columns: PropTypes.number.isRequired,
 	rows: PropTypes.number.isRequired,
 	snake: PropTypes.array.isRequired,
 	food: PropTypes.array.isRequired
