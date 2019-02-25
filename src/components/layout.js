@@ -4,6 +4,7 @@ import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
 
 import Navigation from '../components/Navigation/index';
+import SEO from '../components/SEO/index';
 import styles from './layout.module.scss'
 
 const Layout = ({ children }) => (
@@ -28,6 +29,7 @@ const Layout = ({ children }) => (
         >
           <html lang="en" />
         </Helmet>
+        <SEO />
         <div className={styles.main}>
           <Navigation />
           {children}

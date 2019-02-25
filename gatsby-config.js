@@ -1,8 +1,10 @@
+const config = require("./data/SiteConfig");
 const path = require(`path`)
 
 module.exports = {
   siteMetadata: {
-    title: 'Everest Guerra',
+    title: config.siteTitle,
+    siteUrl: config.siteUrl
   },
   plugins: [
     'gatsby-plugin-react-helmet',
@@ -10,17 +12,18 @@ module.exports = {
     'gatsby-plugin-sass',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
+    "gatsby-plugin-sitemap",
     {
-      resolve: `gatsby-plugin-manifest`,
+      resolve: "gatsby-plugin-manifest",
       options: {
-        name: 'gatsby-starter-default',
-        short_name: 'starter',
-        start_url: '/',
-        background_color: '#333',
-        theme_color: '#333',
-        display: 'minimal-ui',
-        icon: 'src/images/mountain.png',
-      },
+        name: config.siteTitle,
+        short_name: config.siteTitleShort,
+        description: config.siteDescription,
+        background_color: config.backgroundColor,
+        theme_color: config.themeColor,
+        display: "minimal-ui",
+        icon: 'src/images/mountain.png'
+      }
     },
     {
       resolve: 'gatsby-plugin-web-font-loader',
