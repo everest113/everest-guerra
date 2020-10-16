@@ -56,7 +56,7 @@ export default class IndexPage extends React.Component {
             </li>
             <li>
               <a
-                href="https://greek-dressing-prod.herokuapp.com/"
+                href="https://greek-dressing.netlify.app/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
