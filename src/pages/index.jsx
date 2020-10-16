@@ -56,11 +56,11 @@ export default class IndexPage extends React.Component {
             </li>
             <li>
               <a
-                href="https://greekdressing.us"
+                href="https://greek-dressing-prod.herokuapp.com/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Greek Dressing
+                Greek Dressing (Archived)
               </a>
             </li>
             <li>
