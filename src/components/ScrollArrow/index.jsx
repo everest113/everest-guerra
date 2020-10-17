@@ -28,7 +28,7 @@ class ScrollArrow extends React.Component {
 				onClick={this.props.handleClick} 
 				className={cx({
 					[styles.icon]: true,
-					[styles.display]: this.state.offsetTop === 0 ? true:false
+					[styles.display]: this.state.offsetTop === 0
 				})}><i></i></h3>
 		)
 	}

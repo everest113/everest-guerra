@@ -11,5 +11,5 @@ module.exports = {
   googleAnalyticsID: 'UA-47311644-5', // GA tracking ID.
   copyright: `Copyright © ${moment().format('YYYY')}. Everest Guerra`, // Copyright string for the footer of the website and RSS feed.
   themeColor: '#2b2b33', // Used for setting manifest and progress theme colors.
-  backgroundColor: '#fffff', // Used for setting manifest background color.
+  backgroundColor: '#ffffff', // Used for setting manifest background color.
 }
